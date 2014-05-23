@@ -31,20 +31,20 @@ $(function() { h5u_parallelism.init({
 // skel Config
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-	window._skel_config = {
-		prefix: 'css/style',
-		resetCSS: true,
-		pollOnce: true,
-		containers: 'fluid',
-		grid: { gutters: 4 },
-		breakpoints: {
-			'desktop': '481-',
-			'mobile': {
-				range: '-480',
-				lockViewport: true
-			}
-		}
-	};
+    window._skel_config = {
+        prefix: 'css/style',
+        resetCSS: true,
+        pollOnce: true,
+        containers: 'fluid',
+        grid: { gutters: 4 },
+        breakpoints: {
+            'desktop': '481-',
+            'mobile': {
+                range: '-480',
+                lockViewport: true
+            }
+        }
+    };
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // jQuery Helpers
