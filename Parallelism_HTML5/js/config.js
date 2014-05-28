@@ -95,7 +95,8 @@ $(function() { h5u_parallelism.init({
 						padding:			10,			// Padding (in px) between items (0 = no padding)
 						paddingColor:		'#fff',		// Padding color
 						resetScroll:		true,		// If true, reel scroll will reset on page refresh
-						scrollFactor:		1,			// Scales the scroll delta (1 = normal, 2 = double, 0.5 = half, etc.)
+						mainScrollFactor:	2, 			// Scales the main window scroll delta (1 = normal, 2 = double, 0.5 = half, etc.)
+						modalScrollFactor:	1,			// Scales the modal window scroll delta (1 = normal, 2 = double, 0.5 = half, etc.)
 						scrollKeyAmount:	50,			// Scroll amount when using keys
 						scrollWheelTarget:	'window',	// Determines where scrollwheel events should be captured ('window' or 'reel')
 						scrollZoneAmount:	10,			// Scroll amount when using scroll zones
@@ -363,12 +364,26 @@ $(function() { h5u_parallelism.init({
 								_.objects.main.css('overflow-x', 'scroll');
 							else
 							{
-								var scrollHandler = function(e) {
-									var	delta = (e.detail ? e.detail * -10 : e.wheelDelta) * _.settings.scrollFactor;
-									_.objects.main.scrollLeft( _.objects.main.scrollLeft() - delta );
-									$SZ._parallelism_update();
-									e.preventDefault();
-									e.stopPropagation();
+								var scrollHandler = function(e) 
+								{
+									if ($('.modal-open').length > 0)
+									{ 
+									    var	delta = (e.detail ? e.detail * -10 : e.wheelDelta) * _.settings.modalScrollFactor;
+									    _.objects.modal-body.scrollLeft( _.objects.modal-body.scrollLeft() - delta );
+									    $SZ._parallelism_update();
+									    e.preventDefault();
+									    e.stopPropagation();
+									}
+									else
+									{
+										var	delta = (e.detail ? e.detail * -10 : e.wheelDelta) * _.settings.mainScrollFactor;
+										_.objects.main.scrollLeft( _.objects.main.scrollLeft() - delta );
+										$SZ._parallelism_update();
+										e.preventDefault();
+										e.stopPropagation();
+									}
+									
+
 								};
 
 								var st;
@@ -377,7 +392,7 @@ $(function() { h5u_parallelism.init({
 									st = _.objects.main[0];
 								else
 									st = _.objects.window[0];
-									
+								
 								st.addEventListener('DOMMouseScroll', scrollHandler, false);
 								st.addEventListener('mousewheel', scrollHandler, false);
 								
@@ -528,5 +543,7 @@ $(function() { h5u_parallelism.init({
 							_.initDesktop();
 
 				}
+
+			
 
 	}; return _; })(jQuery);
